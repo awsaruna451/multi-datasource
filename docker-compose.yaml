@@ -1,0 +1,35 @@
+version: '3.3'
+services:
+  mysql_container2:
+    image: mysql:latest
+    container_name: mysql_container2
+    networks:
+      spring_exa_local_network:
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_ROOT_PASSWORD: 'abc123'
+      MYSQL_DATABASE: 'example2'
+      MYSQL_USER: 'test_user'
+      MYSQL_PASSWORD: 'abc'
+
+  mysql_container1:
+    image: mysql:latest
+    container_name: mysql_container1
+    networks:
+      spring_exa_local_network:
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_ROOT_PASSWORD: 'abc123'
+      MYSQL_DATABASE: 'abc-bank'
+      MYSQL_USER: 'test_user'
+      MYSQL_PASSWORD: 'abc'
+networks:
+  spring_exa_local_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.16.0.0/16
